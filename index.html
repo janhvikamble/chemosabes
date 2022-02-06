@@ -6,16 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Appointment Form</title>
     <link rel="stylesheet" href="style.css">
+    <script
+  src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+  integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+  crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container">
-        <form onsubmit="javascript:sendmail() " >
+        <form id="queryFrom" >
             <h3>Book an Appointment</h3>
-            <input type="text" id="patient name" placeholder="Patient Name" required>
-            
-            <input type="email" id="patient email" placeholder="Patient's email" required>
-            <input type="text" id="doctor name" placeholder="Doctor's Name" required>
-            <input type="email" id="doctor email" placeholder="Doctor's email" required>
+            <input type="text" id="patient_name" placeholder="Patient Name" required>
+            <input type="email" id="patient_email" placeholder="Patient's email" required>
+            <input type="text" id="doctor_name" placeholder="Doctor's Name" required>
+            <input type="email" id="doctor_email" placeholder="Doctor's email" required>
             <input type="text" id="phone" placeholder="Patient phone no. " required>
             <input type="text" id="date" placeholder="Appointment date" required>
             <input type="text" id="time" placeholder="Appointment time" required>
@@ -23,26 +26,21 @@
             <button type="submit">Send</button>
         </form>
     </div>
-    
-    
-    
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://smtpjs.com/v3/smtp.js"></script>
 <script>
-    function sendmail() { 
-        console.log("mail sent")
-        var name = $('#patient name').val();
-        var email = $('#patient email').val();
+    $("#queryFrom").submit(function(e) {
+    e.preventDefault();
+        var name = $('#patient_name').val();
+        var email = $('#patient_email').val();
         var phone = $('#phone').val();
-        var Appointment date = $('#date').val();
-        var Appointment time = $('#time').val();
+        var Appointment_date = $('#date').val();
+        var Appointment_time = $('#time').val();
         var symptoms = $('#symptoms').val();
-        var Body = 'patient name: ' +name+ '<br>patient email: '+email+'<br>phone: '+phone+ '<br>date: '+Appointment date+'<br>time: '+Appointment time+'<br>symptoms: '+symptoms;
-
-
-    }
-    Email.send({
+        console.log(name,email,phone,Appointment_date,Appointment_time,symptoms)
+        var Body = 'patient name: ' +name+ '<br>patient email: '+email+'<br>phone: '+phone+ '<br>date: '+Appointment_date+'<br>time: '+Appointment_time+'<br>symptoms: '+symptoms;
+        Email.send({
     Host : "smtp.gmail.com",
     Username : "bosom04buddies@gmail.com",
     Password : "chemosabes",
@@ -52,16 +50,16 @@
     Body : Body
 }).then(
   message =>{
-      if(message=='Ok'){
+      if(message=='OK'){
           alert('Mail sent!');
       }
       else{
           console.error(message);
           alert('Due to some error mail is not sent!')
       }
-
   }
 );
+});
 </script>
 
 </html>
